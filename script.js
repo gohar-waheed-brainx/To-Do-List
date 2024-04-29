@@ -14,10 +14,31 @@ function editTask(event) {
     const taskItem = event.target.closest('li');
     if (taskItem) {
         const taskText = taskItem.querySelector('span.task-text');
-        const editText = prompt('Edit Task:', taskText.textContent);
-        if (editText !== null && editText.trim() !== '') {
-            taskText.textContent = editText.trim();
-        }
+        const editText = taskText.textContent;
+        const inputField = document.createElement('input');
+        inputField.type = 'text';
+        inputField.value = editText;
+        inputField.classList.add('edit-input');
+        taskText.textContent = ''; // Clear the task text
+        taskText.appendChild(inputField);
+        inputField.focus();
+
+        // Event listener to handle editing
+        inputField.addEventListener('blur', () => {
+            const newText = inputField.value.trim();
+            if (newText !== '') {
+                taskText.textContent = newText;
+            } else {
+                taskText.textContent = editText; // Restore previous text if new text is empty
+            }
+        });
+
+        // Event listener to handle pressing Enter key
+        inputField.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                inputField.blur(); // Blur the input field to trigger the blur event
+            }
+        });
     }
 }
 

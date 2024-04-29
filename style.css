@@ -43,6 +43,10 @@ input {
     text-align: center;
 }
 
+.edit-input {
+    width: 20vh;
+}
+
 li {
     font-size: 25px;
     color: rgb(69, 67, 67);
